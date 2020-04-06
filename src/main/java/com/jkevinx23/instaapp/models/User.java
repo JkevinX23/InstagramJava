@@ -1,4 +1,4 @@
-package com.jkevinx23.instaapp.entitys;
+package com.jkevinx23.instaapp.models;
 
 /**
  *
