@@ -46,4 +46,24 @@ public class UserController {
 
         return 0;
     }
+
+    public int createAccount(User user){
+        String responseString = con.POST_JSON("/cadastrar",user);
+        
+        if(responseString.compareTo("error")==0){
+            System.out.println("catch");
+            return 1; 
+        }
+        
+        if(responseString.compareTo("{\"error\":\"User already exists.\"}")==0){
+            System.out.println("Usuário já cadastrado");
+            return -1;
+        }
+         if(responseString.compareTo("{\"error\":\"Username already exists.\"}")==0){
+            System.out.println("Username já cadastrado");
+            return -2;
+        }
+        System.out.println("CREATE ACCOUNT::: "+ responseString);
+        return 0;
+    }
 }
