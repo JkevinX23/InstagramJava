@@ -17,11 +17,12 @@ import org.json.JSONObject;
 public class UserController {
     Connection con = new Connection();
     
-    public int login(String email,String senha)
+    public int login(String email,String password)
     {
         User user = new User();
         user.setEmail(email);
-        user.setPassword(senha);
+        user.setPassword(password);
+        
         String responseString = con.POST_JSON("/session",user);
         
         if(responseString.compareTo("error")==0){

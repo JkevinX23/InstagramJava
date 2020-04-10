@@ -7,10 +7,14 @@ package com.jkevinx23.instaapp.view.Login;
 
 import com.jkevinx23.instaapp.config.Keys;
 import com.jkevinx23.instaapp.controller.UserController;
+import com.jkevinx23.instaapp.view.Principal.Principal;
+import com.jkevinx23.instaapp.view.Register.Register;
 import java.awt.Color;
 import java.awt.color.ColorSpace;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
@@ -101,6 +105,16 @@ public class Login extends javax.swing.JFrame {
         lb_createAcc.setFont(new java.awt.Font("Lyster PERSONAL USE ONLY", 0, 12)); // NOI18N
         lb_createAcc.setForeground(new java.awt.Color(87, 2, 104));
         lb_createAcc.setText("Create Account");
+        lb_createAcc.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lb_createAccFocusGained(evt);
+            }
+        });
+        lb_createAcc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lb_createAccMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,6 +192,7 @@ public class Login extends javax.swing.JFrame {
       
     }//GEN-LAST:event_passwordLoginActionPerformed
 
+    
     private void bt_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_enterActionPerformed
         email = emailLogin.getText();
         password = passwordLogin.getText();
@@ -189,6 +204,10 @@ public class Login extends javax.swing.JFrame {
        switch(response){
             case 0:  
                 System.out.println("Token :: "+Keys.BearerToken);
+                JFrame f2 = (JFrame) SwingUtilities.getWindowAncestor(lb_createAcc);     
+                Principal principal = new Principal();
+                principal.setVisible(true);
+                f2.dispose();
                 break;
             case -1: 
                 JOptionPane.showMessageDialog(jPanel1,
@@ -216,6 +235,17 @@ public class Login extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_bt_enterActionPerformed
+
+    private void lb_createAccFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lb_createAccFocusGained
+     
+    }//GEN-LAST:event_lb_createAccFocusGained
+
+    private void lb_createAccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_createAccMouseClicked
+       JFrame f2 = (JFrame) SwingUtilities.getWindowAncestor(lb_createAcc);
+       f2.dispose();
+       Register reg = new Register();
+       reg.setVisible(true);
+    }//GEN-LAST:event_lb_createAccMouseClicked
 
     /**
      * @param args the command line arguments

@@ -7,15 +7,16 @@ package com.jkevinx23.instaapp.view.Register;
 
 import com.jkevinx23.instaapp.controller.UserController;
 import com.jkevinx23.instaapp.models.User;
+import com.jkevinx23.instaapp.view.Login.Login;
 import java.awt.Color;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 /**
@@ -56,7 +57,7 @@ public class Register extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         bt_back = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 0, 17));
 
@@ -331,6 +332,7 @@ public class Register extends javax.swing.JFrame {
 
     private void bt_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_okActionPerformed
         User user = new User();
+
         int response;
 
         Date date = datepicker.getSelectedDate().getTime();
@@ -341,42 +343,52 @@ public class Register extends javax.swing.JFrame {
             tf_name.setBorder(errorBorder);
             tf_name.requestFocus();
         } else {
-
-            user.setName(tf_name.getText());
-
+            
+            user.setName( new String(tf_name.getText().getBytes(),Charset.forName("UTF-8")));
             if (tf_userName.getText().equals("")) {
                 tf_userName.setBorder(errorBorder);
                 tf_userName.requestFocus();
             } else {
 
-                user.setUsername(tf_userName.getText());
+                 user.setUsername(new String(tf_userName.getText().getBytes(),Charset.forName("UTF-8")));
 
                 if (tf_email.getText().equals("")) {
                     tf_email.setBorder(errorBorder);
                     tf_email.requestFocus();
                 } else {
-                    user.setEmail(tf_email.getText());
+                    
+                    user.setEmail(new String(tf_email.getText().getBytes(),Charset.forName("UTF-8")));
 
                     if (tf_bio.getText().equals("")) {
                         tf_bio.setBorder(errorBorder);
                         tf_bio.requestFocus();
                     } else {
-                        user.setBio(tf_bio.getText());
+                        user.setBio(new String(tf_bio.getText().getBytes(),Charset.forName("UTF-8")));
 
                         if (!(Arrays.equals(passfield.getPassword(), passconfirm.getPassword()) && passfield.getPassword().length > 3)) {
                             passfield.setText("");
                             passconfirm.setText("");
 
                         } else {
-                            user.setPassword(Arrays.toString(passfield.getPassword()));
+                            user.setPassword(String.copyValueOf(passfield.getPassword()));
                             user.setDate(data);
                             UserController userController = new UserController();
-                            System.out.println("USER :: " + user);
+                            System.out.println("Senha :: " + user.getPassword());
                             response = userController.createAccount(user);
-
+                         
                             switch (response) {
                                 case 0:
                                     System.out.println("Usuário criado com susesso");
+                                    JOptionPane.showMessageDialog(jPanel1,
+                                            "Sucesso",
+                                            "Cadastro realizado com sucesso, efetue o login.",
+                                            JOptionPane.INFORMATION_MESSAGE);
+                                    JFrame f2 = (JFrame) SwingUtilities.getWindowAncestor(bt_ok);
+                                    f2.dispose();
+
+                                    Login login = new Login();
+                                    login.setVisible(true);
+
                                     break;
                                 case -1:
                                     JOptionPane.showMessageDialog(jPanel1,
@@ -409,7 +421,10 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_okActionPerformed
 
     private void bt_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_backActionPerformed
-
+        JFrame f2 = (JFrame) SwingUtilities.getWindowAncestor(bt_ok);
+        f2.dispose();
+        Login login = new Login();
+        login.setVisible(true);
     }//GEN-LAST:event_bt_backActionPerformed
 
     private void bt_okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_okMouseClicked
@@ -441,8 +456,14 @@ public class Register extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            Register register = new Register();
+
             public void run() {
-                new Register().setVisible(true);
+                register.setVisible(true);
+            }
+
+            public void close() {
+                register.dispose();
             }
         });
     }

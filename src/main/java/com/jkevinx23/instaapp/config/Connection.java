@@ -23,6 +23,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.jkevinx23.instaapp.config.Keys;
+
 /**
  *
  * @author jkevin
@@ -59,7 +61,7 @@ public class Connection {
         }
         return "error";
     }
-     public void POST_JSON_AUTH(String route,Object entity,String BearerToken){
+    public void POST_JSON_AUTH(String route,Object entity,String BearerToken){
         
         try {
             String postUrl = url+route;
@@ -83,9 +85,9 @@ public class Connection {
         }
         
     }
-    public void GET_AUTH(String route, String BearerToken){
+    public String GET_AUTH(String route, String BearerToken){
         try {
-        
+        //String BearerToken = Keys.BearerToken;
         String getUrl = url+route;
         HttpGet get = new HttpGet(getUrl);
         get.setHeader(HttpHeaders.CONTENT_TYPE,"application/json");
@@ -95,12 +97,14 @@ public class Connection {
         HttpResponse response = httpClient.execute(get);
         HttpEntity res = response.getEntity();
         String responseString = EntityUtils.toString(res, "UTF-8");
-        System.out.println(responseString);
+        
+        System.out.println("::RESP_STRING:: "+responseString);
+        return responseString;
    
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+         return "error";
         
     }
      public void PUT_JSON_AUTH(String route,Object entity,String BearerToken){
