@@ -13,6 +13,11 @@ import java.nio.charset.Charset;
 import javax.swing.JFileChooser;
 
 import com.jkevinx23.instaapp.controller.UserController;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,16 +25,15 @@ import com.jkevinx23.instaapp.controller.UserController;
  */
 public class Principal extends javax.swing.JFrame {
 
-   
     CardLayout cardLayout;
+
     public Principal() {
-       
+
         initComponents();
         setHeader();
-       
-        cardLayout = (CardLayout)pnlCards.getLayout();
-        
-        
+
+        cardLayout = (CardLayout) pnlCards.getLayout();
+
     }
 
     /**
@@ -55,7 +59,7 @@ public class Principal extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         pnlCards = new javax.swing.JPanel();
         pnlHome = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        createPublic = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -214,11 +218,16 @@ public class Principal extends javax.swing.JFrame {
 
         pnlHome.setBackground(new java.awt.Color(24, 30, 47));
 
-        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(242, 170, 76));
-        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_add_40px.png")); // NOI18N
-        jLabel14.setText("Nova Publicação");
+        createPublic.setBackground(new java.awt.Color(255, 255, 255));
+        createPublic.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        createPublic.setForeground(new java.awt.Color(242, 170, 76));
+        createPublic.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_add_40px.png")); // NOI18N
+        createPublic.setText("Nova Publicação");
+        createPublic.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                createPublicMouseClicked(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(24, 30, 47));
         jPanel4.setForeground(new java.awt.Color(24, 30, 47));
@@ -383,7 +392,7 @@ public class Principal extends javax.swing.JFrame {
         pnlHome.setLayout(pnlHomeLayout);
         pnlHomeLayout.setHorizontalGroup(
             pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(createPublic, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addGroup(pnlHomeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -392,8 +401,8 @@ public class Principal extends javax.swing.JFrame {
         pnlHomeLayout.setVerticalGroup(
             pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHomeLayout.createSequentialGroup()
-                .addComponent(jLabel14)
-                .addGap(18, 18, 18)
+                .addComponent(createPublic)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -673,14 +682,14 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_searchUsernameActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-       cardLayout.show(pnlCards, "home");
-      
-       System.out.println("Nelore pnlHome");
+        cardLayout.show(pnlCards, "home");
+
+        System.out.println("Nelore pnlHome");
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-       cardLayout.show(pnlCards, "profile");
-       System.out.println("Nelore pnlProfile");
+        cardLayout.show(pnlCards, "profile");
+        System.out.println("Nelore pnlProfile");
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -689,13 +698,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-       cardLayout.show(pnlCards, "following");
-       System.out.println("Nelore pnlFollowing");
+        cardLayout.show(pnlCards, "following");
+        System.out.println("Nelore pnlFollowing");
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       cardLayout.show(pnlCards, "settings");
-       System.out.println("pnlSettings pnlSettings");
+        cardLayout.show(pnlCards, "settings");
+        System.out.println("pnlSettings pnlSettings");
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -707,19 +716,22 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void bt_edit_profile_photoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_edit_profile_photoActionPerformed
-       UserController uc = new UserController();
-       JFileChooser fileChooser = new JFileChooser();
-       int returnValue = fileChooser.showOpenDialog(null);
-       if (returnValue == JFileChooser.APPROVE_OPTION){
-           File selectedFile = fileChooser.getSelectedFile();
-           System.out.println(selectedFile.getName());
-           uc.setPhotoProfile(selectedFile);
-       }     
+        UserController uc = new UserController();
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            System.out.println(selectedFile.getName());
+            uc.setPhotoProfile(selectedFile);
+        }
     }//GEN-LAST:event_bt_edit_profile_photoActionPerformed
 
- 
+    private void createPublicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createPublicMouseClicked
+       ///CREATE PUBLIC
+    }//GEN-LAST:event_createPublicMouseClicked
+
     public static void main(String args[]) {
-       
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -737,29 +749,47 @@ public class Principal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Principal().setVisible(true);
-               
-            }    
+
+            }
         });
     }
 
-     private void setHeader() {
-            User user;
-            PrincipalController pc = new PrincipalController();
-            user = pc.getUser();
-            String nome = new String(user.getName().getBytes(),Charset.forName("UTF-8"));
-            String bio = new String(user.getBio().getBytes(),Charset.forName("UTF-8"));
-            String userName = new String(user.getUsername().getBytes(),Charset.forName("UTF-8"));
-            nameLabel.setText(nome);
-            bioLabel.setText(bio);
-            usernameLabel.setText(userName);
-            }
+    private void setHeader() {
+        User user;
+        PrincipalController pc = new PrincipalController();
+        user = pc.getUser();
+        String nome = new String(user.getName().getBytes(), Charset.forName("UTF-8"));
+        String bio = new String(user.getBio().getBytes(), Charset.forName("UTF-8"));
+        String userName = new String(user.getUsername().getBytes(), Charset.forName("UTF-8"));
+        nameLabel.setText(nome);
+        bioLabel.setText(bio);
+        usernameLabel.setText(userName);
+
+        Image photo;
+        photo = pc.getProfilePhoto();
+
+        if (photo != null) {
+            BufferedImage resizedImg
+                    = new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2
+                    = resizedImg.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g2.drawImage(photo, 0, 0, 50, 50, null);
+            g2.dispose();
+
+            ImageIcon icon = new ImageIcon(resizedImg);
+            userImageView.setIcon(icon);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bioLabel;
     private javax.swing.JButton bt_edit_profile_photo;
+    private javax.swing.JLabel createPublic;
     private javax.swing.JLabel followersNumber;
     private javax.swing.JLabel followingNumber;
     private javax.swing.JButton jButton1;
@@ -771,7 +801,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
