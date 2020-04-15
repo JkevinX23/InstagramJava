@@ -20,25 +20,34 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.jkevinx23.instaapp.config.Keys;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 /**
  *
  * @author jkevin
  */
 public class Connection {
+
     Keys keys = new Keys();
     String url = keys.getLocal();
     Gson gson = new Gson();
     HttpClient httpClient = HttpClientBuilder.create().build();
-    
-    public String POST_JSON(String route,Object entity){
-        
+
+    public String POST_JSON(String route, Object entity) {
+
         try {
-            String postUrl = url+route;
+            String postUrl = url + route;
             HttpPost post = new HttpPost(postUrl);
             StringEntity postingString;
             postingString = new StringEntity(gson.toJson(entity));
@@ -49,11 +58,11 @@ public class Connection {
             HttpResponse response = httpClient.execute(post);
             HttpEntity res = response.getEntity();
             String responseString = EntityUtils.toString(res, "UTF-8");
-            
-            System.out.println("::RESP_STRING:: "+responseString);
-       
+
+            System.out.println("::RESP_STRING:: " + responseString);
+
             return responseString;
-            
+
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -61,10 +70,11 @@ public class Connection {
         }
         return "error";
     }
-    public void POST_JSON_AUTH(String route,Object entity,String BearerToken){
-        
+
+    public void POST_JSON_AUTH(String route, Object entity, String BearerToken) {
+
         try {
-            String postUrl = url+route;
+            String postUrl = url + route;
             HttpPost post = new HttpPost(postUrl);
             StringEntity postingString;
             postingString = new StringEntity(gson.toJson(entity));
@@ -77,41 +87,43 @@ public class Connection {
             HttpEntity res = response.getEntity();
             String responseString = EntityUtils.toString(res, "UTF-8");
             System.out.println(responseString);
-            
+
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    public String GET_AUTH(String route, String BearerToken){
+
+    public String GET_AUTH(String route, String BearerToken) {
         try {
-        //String BearerToken = Keys.BearerToken;
-        String getUrl = url+route;
-        HttpGet get = new HttpGet(getUrl);
-        get.setHeader(HttpHeaders.CONTENT_TYPE,"application/json");
-        get.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BearerToken);
-        
-        ///RESPONSE///
-        HttpResponse response = httpClient.execute(get);
-        HttpEntity res = response.getEntity();
-        String responseString = EntityUtils.toString(res, "UTF-8");
-        
-        System.out.println("::RESP_STRING:: "+responseString);
-        return responseString;
-   
+            //String BearerToken = Keys.BearerToken;
+            String getUrl = url + route;
+            HttpGet get = new HttpGet(getUrl);
+            get.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+            get.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BearerToken);
+
+            ///RESPONSE///
+            HttpResponse response = httpClient.execute(get);
+            HttpEntity res = response.getEntity();
+            String responseString = EntityUtils.toString(res, "UTF-8");
+
+            System.out.println("::RESP_STRING:: " + responseString);
+            return responseString;
+
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return "error";
-        
+        return "error";
+
     }
-     public void PUT_JSON_AUTH(String route,Object entity,String BearerToken){
-        
+
+    public void PUT_JSON_AUTH(String route, Object entity, String BearerToken) {
+
         try {
-            String putUrl = url+route;
-            HttpPut put= new HttpPut(putUrl);
+            String putUrl = url + route;
+            HttpPut put = new HttpPut(putUrl);
             StringEntity putingString;
             putingString = new StringEntity(gson.toJson(entity));
             put.setHeader("Content-type", "application/json");
@@ -123,13 +135,46 @@ public class Connection {
             HttpEntity res = response.getEntity();
             String responseString = EntityUtils.toString(res, "UTF-8");
             System.out.println(responseString);
-            
+
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
+    public String PUT_MULTIPART_AUTH(String route, File uploadFile, String BearerToken) {
+
+            String putUrl = url + route;
+      
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            
+            HttpPut put = new HttpPut(putUrl);
+            
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            
+            put.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BearerToken);
+            
+        try {
+            builder.addBinaryBody("file",
+                    new FileInputStream(uploadFile),
+                    ContentType.APPLICATION_OCTET_STREAM,
+                    uploadFile.getName()
+                   );
+
+            HttpEntity multipart = builder.build();
+            put.setEntity(multipart);
+            CloseableHttpResponse response = httpClient.execute(put);
+            HttpEntity res = response.getEntity();
+            String responseString = EntityUtils.toString(res, "UTF-8");
+            System.out.println(responseString);
+            return responseString;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "error";
+    }
 }

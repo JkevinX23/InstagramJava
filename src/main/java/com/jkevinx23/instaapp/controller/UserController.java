@@ -8,6 +8,7 @@ package com.jkevinx23.instaapp.controller;
 import com.jkevinx23.instaapp.models.User;
 import com.jkevinx23.instaapp.config.Connection;
 import com.jkevinx23.instaapp.config.Keys;
+import java.io.File;
 import org.json.JSONObject;
 
 /**
@@ -65,6 +66,19 @@ public class UserController {
             return -2;
         }
         System.out.println("CREATE ACCOUNT::: "+ responseString);
+        return 0;
+    }
+    
+    public int setPhotoProfile(File file){
+        String responseString = 
+                con.PUT_MULTIPART_AUTH("/user/photo", file, Keys.BearerToken);
+         
+        if(responseString.compareTo("error")==0){
+            System.out.println("catch");
+            return 1; 
+        }
+        
+        System.out.println("SEUSSES IN SEND FILE"+ responseString);
         return 0;
     }
 }
