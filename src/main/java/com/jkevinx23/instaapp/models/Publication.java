@@ -10,50 +10,61 @@ package com.jkevinx23.instaapp.models;
  * @author jkevi
  */
 public class Publication {
+    
+    private String id;
     private String path;
-    private String id_user;
-    private String tb_like;
-    private String tb_comment;
+    private String iduser;
     private String description;
+    private String createat;
 
+      public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    public String getCreateat() {
+        return createat;
+    }
+
+    public void setCreateat(String createat) {
+        this.createat = createat;
+    }
+
+    public String getUpdateat() {
+        return updateat;
+    }
+
+    public void setUpdateat(String updateat) {
+        this.updateat = updateat;
+    }
+    private String updateat;
+    
+    
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setId_user(String id_user) {
-        this.id_user = id_user;
+    public void setIduser(String iduser) {
+        this.iduser = iduser;
     }
 
     public void setPath(String path) {
         this.path = path;
     }
 
-    public void setTb_comment(String tb_comment) {
-        this.tb_comment = tb_comment;
-    }
-
-    public void setTb_like(String tb_like) {
-        this.tb_like = tb_like;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public String getId_user() {
-        return id_user;
+    public String getIduser() {
+        return iduser;
     }
 
     public String getPath() {
         return path;
-    }
-
-    public String getTb_comment() {
-        return tb_comment;
-    }
-
-    public String getTb_like() {
-        return tb_like;
     }
 
 }

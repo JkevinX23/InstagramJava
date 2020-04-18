@@ -5,6 +5,7 @@ package com.jkevinx23.instaapp.models;
  * @author jkevin
  */
 public class User {
+     private String id;
      private String email;
      private String password;
      private String bio;
@@ -13,6 +14,14 @@ public class User {
      private String username;
      private String profilePhoto;
 
+     
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getNascimento() {
         return nascimento;
     }

@@ -32,6 +32,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.json.JSONObject;
 
 /**
  *
@@ -71,7 +72,7 @@ public class Connection {
         return "error";
     }
 
-    public void POST_JSON_AUTH(String route, Object entity, String BearerToken) {
+    public String POST_JSON_AUTH(String route, Object entity, String BearerToken) {
 
         try {
             String postUrl = url + route;
@@ -88,11 +89,40 @@ public class Connection {
             String responseString = EntityUtils.toString(res, "UTF-8");
             System.out.println(responseString);
 
+           return responseString;
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return "error";
+
+    }
+    
+     public String POST_JSON_AUTH2(String route, JSONObject entity, String BearerToken) {
+
+        try {
+            String postUrl = url + route;
+            HttpPost post = new HttpPost(postUrl);
+            StringEntity postingString;
+            postingString = new StringEntity(entity.toString());
+            post.setHeader("Content-type", "application/json");
+            post.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BearerToken);
+            post.setEntity(postingString);
+
+            ///RESPONSE///
+            HttpResponse response = httpClient.execute(post);
+            HttpEntity res = response.getEntity();
+            String responseString = EntityUtils.toString(res, "UTF-8");
+            System.out.println(responseString);
+
+           return responseString;
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "error";
 
     }
 

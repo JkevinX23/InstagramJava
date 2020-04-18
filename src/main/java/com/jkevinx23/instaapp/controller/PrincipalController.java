@@ -7,6 +7,7 @@ package com.jkevinx23.instaapp.controller;
 
 import com.jkevinx23.instaapp.config.Connection;
 import com.jkevinx23.instaapp.config.Keys;
+import com.jkevinx23.instaapp.models.Publication;
 import com.jkevinx23.instaapp.models.User;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -14,10 +15,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONString;
 
 /**
  *
@@ -29,25 +35,70 @@ public class PrincipalController {
     String token = Keys.BearerToken;
 
     public User getUser() {
-        User user = new User();
-
-        //String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTg2N2JlZGExZDM3NjNlNzIyOGZmODUiLCJpYXQiOjE1ODY0ODYwMTMsImV4cCI6MTU4NzA5MDgxM30.rkUK4V6xCW4lYAW68N3E-ZShxjJLpjGGrWS5KsvQqUg";
+        User user = new User();       
         String responseString = con.GET_AUTH("/user", token);
         JSONObject jsonObject = new JSONObject(responseString);
 
         user.setBio(jsonObject.getString("bio"));
         user.setName(jsonObject.getString("name"));
         user.setUsername(jsonObject.getString("username"));
-        user.setProfilePhoto(jsonObject.getString("profilePhoto"));
+        user.setProfilePhoto(jsonObject.getString("profilephoto"));
         return user;
     }
 
+    public User getUserFromID(String iduser){
+        User user = new User();
+        
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("iduser", iduser);   
+        String responseString = con.POST_JSON_AUTH2("/public/profile/user",jsonObject ,token); 
+        
+        
+        JSONObject response = new JSONObject(responseString);
+        user.setId(response.getString("_id"));
+        user.setName(response.getString("name"));
+        user.setUsername(response.getString("username"));
+        //user.setBio(response.getString("bio"));  
+        user.setProfilePhoto(response.getString("profilephoto"));
+
+        
+        return user;
+    
+    }
+
+    public Publication getPublic(JSONObject publics){
+        Publication pb = new Publication();
+        
+        pb.setId(publics.get("_id").toString());
+        pb.setPath(publics.get("path").toString());
+        //pb.setDescription(publics.get("description").toString());
+        
+        return pb;
+    }
+    
+    public Image getPublicationPhoto(JSONObject pb){
+        Image png;
+        String response = con.POST_JSON_AUTH2("/public/pic", pb, token);
+        JSONObject jsonObject = new JSONObject(response);
+        String path = jsonObject.getString("fileUrl");
+          try {
+            URL url = new URL(path);
+            png = ImageIO.read(url);
+            return png;
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public Image getProfilePhoto() {
-        Image png = null;
+        Image png;
         String responseString = con.GET_AUTH("/user/photo", token);
         JSONObject jsonObject = new JSONObject(responseString);
         String path = jsonObject.getString("fileUrl");
-        BufferedImage image = null;
         try {
             URL url = new URL(path);
             png = ImageIO.read(url);
@@ -59,6 +110,32 @@ public class PrincipalController {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public Image getUserPhoto(User user){
+        
+        Image png;
+        JSONObject id = new JSONObject();
+        id.put("_id", user.getId());
+        String response = con.POST_JSON_AUTH2("/public/profile", id, token);
+        JSONObject jsonObject = new JSONObject(response);
+        System.out.println(response);
+        String path = jsonObject.getString("fileUrl");
+          try {
+            URL url = new URL(path);
+            png = ImageIO.read(url);
+            return png;
+
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public String getFeed(){
+        return con.GET_AUTH("/feed", token);
     }
 
 }
