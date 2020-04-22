@@ -9,7 +9,6 @@ import com.jkevinx23.instaapp.Feed;
 import com.jkevinx23.instaapp.config.Connection;
 import com.jkevinx23.instaapp.config.Keys;
 import com.jkevinx23.instaapp.models.User;
-import java.awt.Image;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
