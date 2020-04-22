@@ -5,6 +5,8 @@
  */
 package com.jkevinx23.instaapp.view.Principal;
 
+import com.jkevinx23.instaapp.Feed;
+import com.jkevinx23.instaapp.controller.AsyncFeedController;
 import com.jkevinx23.instaapp.controller.PrincipalController;
 import com.jkevinx23.instaapp.models.User;
 import java.awt.CardLayout;
@@ -31,6 +33,9 @@ import org.json.JSONObject;
  * @author jkevi
  */
 public class Principal extends javax.swing.JFrame {
+    public String[] ID_USER_FEED;
+    public int PAGE;
+    public JSONArray jSONArray;
 
     CardLayout cardLayout;
 
@@ -39,8 +44,10 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         setHeader();
         setFeed();
+        
 
         cardLayout = (CardLayout) pnlCards.getLayout();
+       
 
     }
 
@@ -314,6 +321,11 @@ public class Principal extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Fira Code Medium", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(242, 170, 76));
         jLabel18.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_circled_right_40px.png")); // NOI18N
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel18MouseClicked(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Fira Code Medium", 1, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(242, 170, 76));
@@ -704,7 +716,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         cardLayout.show(pnlCards, "home");
-
+     
         System.out.println("Nelore pnlHome");
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -751,6 +763,10 @@ public class Principal extends javax.swing.JFrame {
        ///CREATE PUBLIC
     }//GEN-LAST:event_createPublicMouseClicked
 
+    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+       PAGE = PAGE + 1;
+    }//GEN-LAST:event_jLabel18MouseClicked
+
     public static void main(String args[]) {
 
         try {
@@ -780,6 +796,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void setHeader() {
+        PAGE=0;
         User user;
         PrincipalController pc = new PrincipalController();
         user = pc.getUser();
@@ -801,20 +818,30 @@ public class Principal extends javax.swing.JFrame {
     private void setFeed(){
       PrincipalController pc = new PrincipalController();
       String response = pc.getFeed();
-      JSONArray jSONArray = new JSONArray(response);
+      jSONArray = new JSONArray(response);
       System.out.println("Size :: "+jSONArray.length()); 
       
       int size = jSONArray.length();
-      String[] idUsers = new String[size];
+      ID_USER_FEED = new String[size];
       for(int i=0; i< jSONArray.length();i++){
-          idUsers[i] = jSONArray.getJSONObject(i).get("iduser").toString();
+          ID_USER_FEED[i] = jSONArray.getJSONObject(i).get("iduser").toString();
       }
       
-     
+      Feed feed = new Feed();
+      feed.setDescription(descPublic);
+      feed.setImageView(ivPublic);
+      feed.setProfilePhoto(pulbicProfilePhoto);
+      feed.setTemp(temp);
+      feed.setUsername(publicUsername);
+      AsyncFeedController afc = new AsyncFeedController();
+      afc.setFeedItens(feed, ID_USER_FEED[PAGE],jSONArray.getJSONObject(PAGE));
+      
+      
+      /*
       User[] profiles = new User[size]; 
       int i=0;
-      for (i = 0; i<idUsers.length;i++) {
-            profiles[i] = (pc.getUserFromID(idUsers[i]));
+      for (i = 0; i<ID_USER_FEED.length;i++) {
+            profiles[i] = (pc.getUserFromID(ID_USER_FEED[i]));
         }
      
       Image[] profilesPic = new Image[size];
@@ -834,7 +861,7 @@ public class Principal extends javax.swing.JFrame {
         System.out.println("PICS PROFILES: "+profilesPic.length);
         System.out.println("-------------------------");
         System.out.println("publicPics: "+publicPics.length);
-        System.out.println("-------------------------");
+        System.out.println("-------------------------");*/
     }
     
     private Image resize(Image photo,int px){
