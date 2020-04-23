@@ -6,8 +6,10 @@
 package com.jkevinx23.instaapp.view.Principal;
 
 import com.jkevinx23.instaapp.Feed;
+import com.jkevinx23.instaapp.ProfileHead;
 import com.jkevinx23.instaapp.controller.AsyncFeedController;
 import com.jkevinx23.instaapp.controller.PrincipalController;
+import com.jkevinx23.instaapp.controller.SwingWorkers.AsyncGetUserPhoto;
 import com.jkevinx23.instaapp.models.User;
 import java.awt.CardLayout;
 import java.io.File;
@@ -33,6 +35,7 @@ import org.json.JSONObject;
  * @author jkevi
  */
 public class Principal extends javax.swing.JFrame {
+
     public String[] ID_USER_FEED;
     public int PAGE;
     public JSONArray jSONArray;
@@ -44,10 +47,8 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         setHeader();
         setFeed();
-        
 
         cardLayout = (CardLayout) pnlCards.getLayout();
-       
 
     }
 
@@ -716,7 +717,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         cardLayout.show(pnlCards, "home");
-     
+
         System.out.println("Nelore pnlHome");
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -760,11 +761,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_edit_profile_photoActionPerformed
 
     private void createPublicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createPublicMouseClicked
-       ///CREATE PUBLIC
+        ///CREATE PUBLIC
     }//GEN-LAST:event_createPublicMouseClicked
 
     private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
-       PAGE = PAGE + 1;
+        PAGE = PAGE + 1;
     }//GEN-LAST:event_jLabel18MouseClicked
 
     public static void main(String args[]) {
@@ -796,48 +797,53 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void setHeader() {
-        PAGE=0;
-        User user;
+        PAGE = 0;
+        AsyncFeedController asyncFeedController = new AsyncFeedController();
+        ProfileHead profileHead = new ProfileHead();
         PrincipalController pc = new PrincipalController();
+        User user;
+
+        profileHead.setNameLabel(nameLabel);
+        profileHead.setUsernameLabel(usernameLabel);
+        profileHead.setFollowersNumber(followersNumber);
+        profileHead.setFollowingNumber(followingNumber);
+        profileHead.setUserPhoto(userImageView);
+
         user = pc.getUser();
         String nome = new String(user.getName().getBytes(), Charset.forName("UTF-8"));
-        String bio = new String(user.getBio().getBytes(), Charset.forName("UTF-8"));
+        //String bio = new String(user.getBio().getBytes(), Charset.forName("UTF-8"));
         String userName = new String(user.getUsername().getBytes(), Charset.forName("UTF-8"));
+
         nameLabel.setText(nome);
         //bioLabel.setText(bio);
         usernameLabel.setText(userName);
-        try{
-            ImageIcon icon = new ImageIcon(resize(pc.getProfilePhoto(), 50));
-            userImageView.setIcon(icon);
-        }catch(Exception e){
-            System.err.println(e);
-        }
-       
+
+        asyncFeedController.setHeaderItens(profileHead);
+
     }
-    
-    private void setFeed(){
-      PrincipalController pc = new PrincipalController();
-      String response = pc.getFeed();
-      jSONArray = new JSONArray(response);
-      System.out.println("Size :: "+jSONArray.length()); 
-      
-      int size = jSONArray.length();
-      ID_USER_FEED = new String[size];
-      for(int i=0; i< jSONArray.length();i++){
-          ID_USER_FEED[i] = jSONArray.getJSONObject(i).get("iduser").toString();
-      }
-      
-      Feed feed = new Feed();
-      feed.setDescription(descPublic);
-      feed.setImageView(ivPublic);
-      feed.setProfilePhoto(pulbicProfilePhoto);
-      feed.setTemp(temp);
-      feed.setUsername(publicUsername);
-      AsyncFeedController afc = new AsyncFeedController();
-      afc.setFeedItens(feed, ID_USER_FEED[PAGE],jSONArray.getJSONObject(PAGE));
-      
-      
-      /*
+
+    private void setFeed() {
+        PrincipalController pc = new PrincipalController();
+        String response = pc.getFeed();
+        jSONArray = new JSONArray(response);
+        System.out.println("Size :: " + jSONArray.length());
+
+        int size = jSONArray.length();
+        ID_USER_FEED = new String[size];
+        for (int i = 0; i < jSONArray.length(); i++) {
+            ID_USER_FEED[i] = jSONArray.getJSONObject(i).get("iduser").toString();
+        }
+
+        Feed feed = new Feed();
+        feed.setDescription(descPublic);
+        feed.setImageView(ivPublic);
+        feed.setProfilePhoto(pulbicProfilePhoto);
+        feed.setTemp(temp);
+        feed.setUsername(publicUsername);
+        AsyncFeedController afc = new AsyncFeedController();
+        afc.setFeedItens(feed, ID_USER_FEED[PAGE], jSONArray.getJSONObject(PAGE));
+
+        /*
       User[] profiles = new User[size]; 
       int i=0;
       for (i = 0; i<ID_USER_FEED.length;i++) {
@@ -863,9 +869,9 @@ public class Principal extends javax.swing.JFrame {
         System.out.println("publicPics: "+publicPics.length);
         System.out.println("-------------------------");*/
     }
-    
-    private Image resize(Image photo,int px){
-        if(photo!=null){
+
+    private Image resize(Image photo, int px) {
+        if (photo != null) {
             BufferedImage resizedImg
                     = new BufferedImage(px, px, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2
@@ -874,12 +880,12 @@ public class Principal extends javax.swing.JFrame {
                     RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g2.drawImage(photo, 0, 0, px, px, null);
             g2.dispose();
-            
+
             return resizedImg;
         }
         return photo;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_edit_profile_photo;
     private javax.swing.JLabel createPublic;

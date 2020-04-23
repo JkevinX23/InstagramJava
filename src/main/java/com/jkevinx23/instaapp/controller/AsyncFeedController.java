@@ -6,14 +6,13 @@
 package com.jkevinx23.instaapp.controller;
 
 import com.jkevinx23.instaapp.Feed;
+import com.jkevinx23.instaapp.ProfileHead;
 import com.jkevinx23.instaapp.controller.SwingWorkers.AsyncGetPublicPhoto;
 import com.jkevinx23.instaapp.controller.SwingWorkers.AsyncGetUserID;
+import com.jkevinx23.instaapp.controller.SwingWorkers.AsyncProfilePhoto;
 import org.json.JSONObject;
 
-/**
- *
- * @author jkevi
- */
+
 public class AsyncFeedController {
     
     
@@ -29,5 +28,15 @@ public class AsyncFeedController {
         asyncGetPublicPhoto.execute();
         
     }
+    
+    public void setHeaderItens(ProfileHead head){
+        
+        //SET CURRENT USER PROFILE
+        AsyncProfilePhoto asyncProfilePhoto = new AsyncProfilePhoto(head.getUserPhoto());
+        asyncProfilePhoto.execute();
+        
+        
+    }
+    
   
 }
