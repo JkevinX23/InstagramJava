@@ -22,8 +22,7 @@ import javax.swing.ImageIcon;
 import org.json.JSONArray;
 
 /**
- *
- * @author jkevi
+ * @author jkevin
  */
 public class Principal extends javax.swing.JFrame {
 
@@ -32,18 +31,22 @@ public class Principal extends javax.swing.JFrame {
     public int SIZE;
     public JSONArray jSONArray;
     public Feed feed;
+    public CommentController commentController;
 
     CardLayout cardLayout;
 
     public Principal() {
+        commentController = new CommentController();
 
         initComponents();
         getFeed();
         setHeader();
         setiduserFeed();
         setFeed();
+        setComments();
 
         cardLayout = (CardLayout) pnlCards.getLayout();
+        
 
     }
 
@@ -74,14 +77,14 @@ public class Principal extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         descPublic = new javax.swing.JLabel();
         ivPublic = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         nextButom = new javax.swing.JLabel();
         backFeed = new javax.swing.JLabel();
         buttonComment = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         inComment = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        CommentsList = new javax.swing.JList<>();
         pnlSettings = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -280,30 +283,6 @@ public class Principal extends javax.swing.JFrame {
 
         ivPublic.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_picture_240px.png")); // NOI18N
 
-        jPanel7.setBackground(new java.awt.Color(44, 51, 78));
-        jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(242, 170, 76));
-        jLabel16.setText("@userName comentário huehue");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16)
-                .addContainerGap(146, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel16)
-                .addGap(73, 73, 73))
-        );
-
         jLabel17.setFont(new java.awt.Font("Lyster PERSONAL USE ONLY", 0, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(242, 170, 76));
         jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_heart_20px.png")); // NOI18N
@@ -345,6 +324,13 @@ public class Principal extends javax.swing.JFrame {
         inComment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jScrollPane1.setViewportView(inComment);
 
+        CommentsList.setBackground(new java.awt.Color(44, 51, 78));
+        CommentsList.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        CommentsList.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        CommentsList.setForeground(new java.awt.Color(242, 170, 76));
+        CommentsList.setToolTipText("");
+        jScrollPane2.setViewportView(CommentsList);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -357,21 +343,21 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(nextButom))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 34, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(ivPublic)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(buttonComment))
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addGap(13, 13, 13)
-                                        .addComponent(buttonComment))
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel17)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1))
+                                        .addComponent(jScrollPane1)))
                                 .addGap(21, 21, 21))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(descPublic, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,14 +375,14 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(backFeed))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonComment))
+                            .addComponent(jLabel17)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonComment)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(nextButom)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -771,9 +757,11 @@ public class Principal extends javax.swing.JFrame {
                 clearHeaderFeed();
             }
 
+            commentController.clearJList(CommentsList);
             PAGE = PAGE + 1;
             clearFeed();
             setFeed();
+            setComments();
         }
 
         if (PAGE == SIZE - 1) {
@@ -794,14 +782,17 @@ public class Principal extends javax.swing.JFrame {
                 clearHeaderFeed();
             }
 
+            commentController.clearJList(CommentsList);
             PAGE = PAGE - 1;
             clearFeed();
             setFeed();
+            setComments();
+            
 
             nextButom.setIcon(new ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_circled_right_40px.png"));
         }
 
-        if (PAGE - 1 == 0) {
+        if (PAGE - 1 < 0) {
             backFeed.setIcon(new ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_back_arrow_40px.png"));
 
         }
@@ -809,24 +800,25 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_backFeedMouseClicked
 
     private void buttonCommentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCommentMouseClicked
-        
+
         Comment comment = new Comment();
-        String content = new String(inComment.getText().getBytes(),Charset.forName("UTF-8"));
+        String content = new String(inComment.getText().getBytes(), Charset.forName("UTF-8"));
         String publicID = jSONArray.getJSONObject(PAGE).get("_id").toString();
-        
-        if(content.length()>1){
+
+        if (content.length() > 1) {
             comment.setContent(content);
             comment.setIdpublic(publicID);
-        
-            CommentController controller = new CommentController();
-            controller.store(comment);
-            
+            commentController.store(comment);
             inComment.setText("");
         }
-        
-        
-      
+
     }//GEN-LAST:event_buttonCommentMouseClicked
+
+    private void setComments() {      
+        String publicID = jSONArray.getJSONObject(PAGE).get("_id").toString();
+        commentController.index(publicID, CommentsList);
+
+    }
 
     private void clearHeaderFeed() {
         feed.getProfilePhoto().setIcon(new ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_user_42px.png"));
@@ -857,11 +849,8 @@ public class Principal extends javax.swing.JFrame {
         //</editor-fold>
 
         //</editor-fold>
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Principal().setVisible(true);
         });
     }
 
@@ -913,6 +902,7 @@ public class Principal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> CommentsList;
     private javax.swing.JLabel backFeed;
     private javax.swing.JButton bt_edit_profile_photo;
     private javax.swing.JLabel buttonComment;
@@ -928,7 +918,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -943,8 +932,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nextButom;
@@ -962,4 +951,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel userImageView;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
+
 }

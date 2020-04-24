@@ -55,7 +55,7 @@ public class AsyncGetUserID extends SwingWorker<User, Void> {
     protected void done() {
         try {
             super.done();
-            User user = new User();
+            User user;
             user = get();
             feed.getUsername().setText(user.getName());
             
