@@ -10,26 +10,19 @@ import com.jkevinx23.instaapp.config.Keys;
 import com.jkevinx23.instaapp.models.Publication;
 import com.jkevinx23.instaapp.models.User;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 /**
  *
  * @author jkevi
  */
-public class PrincipalController {
+public class MainController {
 
     Connection con = new Connection();
     String token = Keys.BearerToken;
@@ -87,9 +80,9 @@ public class PrincipalController {
             return png;
 
         } catch (MalformedURLException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -105,9 +98,9 @@ public class PrincipalController {
             return png;
 
         } catch (MalformedURLException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -127,9 +120,9 @@ public class PrincipalController {
             return png;
 
         } catch (MalformedURLException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

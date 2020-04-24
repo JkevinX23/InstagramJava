@@ -8,7 +8,7 @@ package com.jkevinx23.instaapp.controller.SwingWorkers;
 import com.jkevinx23.instaapp.auxiliar.ResizeImages;
 import com.jkevinx23.instaapp.config.Connection;
 import com.jkevinx23.instaapp.config.Keys;
-import com.jkevinx23.instaapp.controller.PrincipalController;
+import com.jkevinx23.instaapp.controller.MainController;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -51,9 +51,9 @@ public class AsyncProfilePhoto extends SwingWorker<Image, Void>{
            
 
         } catch (MalformedURLException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

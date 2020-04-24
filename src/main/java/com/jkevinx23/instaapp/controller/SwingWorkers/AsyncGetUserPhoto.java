@@ -8,7 +8,7 @@ package com.jkevinx23.instaapp.controller.SwingWorkers;
 import com.jkevinx23.instaapp.auxiliar.ResizeImages;
 import com.jkevinx23.instaapp.config.Connection;
 import com.jkevinx23.instaapp.config.Keys;
-import com.jkevinx23.instaapp.controller.PrincipalController;
+import com.jkevinx23.instaapp.controller.MainController;
 import com.jkevinx23.instaapp.models.User;
 import java.awt.Image;
 import java.io.IOException;
@@ -43,8 +43,6 @@ public class AsyncGetUserPhoto extends SwingWorker<Image, Void> {
 
         Connection con = new Connection();
 
-        User user = new User();
-
         Image png;
 
         JSONObject id = new JSONObject();
@@ -61,9 +59,9 @@ public class AsyncGetUserPhoto extends SwingWorker<Image, Void> {
             return png;
 
         } catch (MalformedURLException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
 
