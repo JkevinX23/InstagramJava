@@ -10,10 +10,7 @@ import com.jkevinx23.instaapp.config.Keys;
 import java.io.File;
 import org.json.JSONObject;
 
-/**
- *
- * @author jkevi
- */
+
 public class PublicController {
     
     Connection con = new Connection();

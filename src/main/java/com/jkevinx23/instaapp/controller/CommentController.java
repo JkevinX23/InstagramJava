@@ -53,6 +53,7 @@ public class CommentController {
             String content = contentList.getJSONObject(i).get("content").toString();
             listModel.addElement(content);        
         }
+        
         list = new JList(listModel);
     }
 

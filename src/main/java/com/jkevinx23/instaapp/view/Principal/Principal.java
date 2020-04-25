@@ -20,9 +20,8 @@ import com.jkevinx23.instaapp.controller.UserController;
 import com.jkevinx23.instaapp.models.Comment;
 import com.jkevinx23.instaapp.view.PublicStore.PublicStore;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import org.json.JSONArray;
+import com.jkevinx23.instaapp.view.Profile.IndexProfiles;
 
 /**
  * @author jkevin
@@ -63,7 +62,6 @@ public class Principal extends javax.swing.JFrame {
 
         pnlHeader = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        searchUsername = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         userImageView = new javax.swing.JLabel();
@@ -105,7 +103,7 @@ public class Principal extends javax.swing.JFrame {
         pnlProfile = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        menuProfile = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -119,15 +117,15 @@ public class Principal extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(242, 170, 76));
         jLabel6.setText("InstApp");
 
-        searchUsername.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        searchUsername.setForeground(new java.awt.Color(242, 170, 76));
-        searchUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchUsernameActionPerformed(evt);
+        jLabel7.setFont(new java.awt.Font("Lyster PERSONAL USE ONLY", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(242, 170, 76));
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_search_30px.png")); // NOI18N
+        jLabel7.setText("Usuários");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
             }
         });
-
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_search_20px.png")); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(30, 45, 61));
 
@@ -199,22 +197,18 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(165, 165, 165)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(searchUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addContainerGap())
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlHeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(searchUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(pnlHeaderLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel7))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pnlCards.setBackground(new java.awt.Color(24, 30, 47));
@@ -604,13 +598,13 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setBackground(new java.awt.Color(242, 170, 76));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(242, 170, 76));
-        jLabel3.setText("Profile");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuProfile.setBackground(new java.awt.Color(242, 170, 76));
+        menuProfile.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        menuProfile.setForeground(new java.awt.Color(242, 170, 76));
+        menuProfile.setText("Profile");
+        menuProfile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                menuProfileMouseClicked(evt);
             }
         });
 
@@ -662,7 +656,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
+                            .addComponent(menuProfile)
                             .addComponent(jLabel2))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -672,7 +666,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(menuProfile)
                 .addGap(34, 34, 34)
                 .addComponent(jLabel4)
                 .addGap(34, 34, 34)
@@ -702,20 +696,16 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchUsernameActionPerformed
-
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         cardLayout.show(pnlCards, "home");
 
         System.out.println("Nelore pnlHome");
     }//GEN-LAST:event_jLabel2MouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void menuProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuProfileMouseClicked
         cardLayout.show(pnlCards, "profile");
         System.out.println("Nelore pnlProfile");
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_menuProfileMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         cardLayout.show(pnlCards, "follower");
@@ -821,6 +811,13 @@ public class Principal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_buttonCommentMouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+      
+        IndexProfiles indexProfiles = new IndexProfiles();
+        indexProfiles.setVisible(true);
+        
+    }//GEN-LAST:event_jLabel7MouseClicked
 
     private void setComments() {      
         String publicID = jSONArray.getJSONObject(PAGE).get("_id").toString();
@@ -930,7 +927,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -945,6 +941,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel menuProfile;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nextButom;
     private javax.swing.JPanel pnlCards;
@@ -956,7 +953,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlSettings;
     private javax.swing.JLabel publicUsername;
     private javax.swing.JLabel pulbicProfilePhoto;
-    private javax.swing.JTextField searchUsername;
     private javax.swing.JLabel temp;
     private javax.swing.JLabel userImageView;
     private javax.swing.JLabel usernameLabel;
