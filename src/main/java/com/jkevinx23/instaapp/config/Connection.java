@@ -86,7 +86,7 @@ public class Connection {
             String responseString = EntityUtils.toString(res, "UTF-8");
             System.out.println(responseString);
 
-           return responseString;
+            return responseString;
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -95,8 +95,8 @@ public class Connection {
         return "error";
 
     }
-    
-     public String POST_JSON_AUTH2(String route, JSONObject entity, String BearerToken) {
+
+    public String POST_JSON_AUTH2(String route, JSONObject entity, String BearerToken) {
 
         try {
             String postUrl = url + route;
@@ -113,7 +113,7 @@ public class Connection {
             String responseString = EntityUtils.toString(res, "UTF-8");
             System.out.println(responseString);
 
-           return responseString;
+            return responseString;
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -173,26 +173,60 @@ public class Connection {
 
     public String PUT_MULTIPART_AUTH(String route, File uploadFile, String BearerToken) {
 
-            String putUrl = url + route;
-      
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-            
-            HttpPut put = new HttpPut(putUrl);
-            
-            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-            
-            put.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BearerToken);
-            
+        String putUrl = url + route;
+
+        CloseableHttpClient closeableHttpClient = HttpClients.createDefault();
+
+        HttpPut put = new HttpPut(putUrl);
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+        put.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BearerToken);
+
         try {
             builder.addBinaryBody("file",
                     new FileInputStream(uploadFile),
                     ContentType.APPLICATION_OCTET_STREAM,
                     uploadFile.getName()
-                   );
+            );
 
             HttpEntity multipart = builder.build();
             put.setEntity(multipart);
-            CloseableHttpResponse response = httpClient.execute(put);
+            CloseableHttpResponse response = closeableHttpClient.execute(put);
+            HttpEntity res = response.getEntity();
+            String responseString = EntityUtils.toString(res, "UTF-8");
+            System.out.println(responseString);
+            return responseString;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "error";
+    }
+
+    public String POST_MULTIPART_AUTH(String route, File uploadFile, String BearerToken) {
+
+        String postUrl = url + route;
+
+        CloseableHttpClient closeableHttpClient = HttpClients.createDefault();
+
+        HttpPost post = new HttpPost(postUrl);
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+        post.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + BearerToken);
+
+        try {
+            builder.addBinaryBody("file",
+                    new FileInputStream(uploadFile),
+                    ContentType.APPLICATION_OCTET_STREAM,
+                    uploadFile.getName()
+            );
+
+            HttpEntity multipart = builder.build();
+            post.setEntity(multipart);
+            CloseableHttpResponse response = closeableHttpClient.execute(post);
             HttpEntity res = response.getEntity();
             String responseString = EntityUtils.toString(res, "UTF-8");
             System.out.println(responseString);

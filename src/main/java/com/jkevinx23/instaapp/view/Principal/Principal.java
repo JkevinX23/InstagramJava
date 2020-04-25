@@ -18,7 +18,10 @@ import javax.swing.JFileChooser;
 
 import com.jkevinx23.instaapp.controller.UserController;
 import com.jkevinx23.instaapp.models.Comment;
+import com.jkevinx23.instaapp.view.PublicStore.PublicStore;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import org.json.JSONArray;
 
 /**
@@ -42,9 +45,13 @@ public class Principal extends javax.swing.JFrame {
         getFeed();
         setHeader();
         setiduserFeed();
-        setFeed();
-        setComments();
+        
+        if(ID_USER_FEED.length > 0){
+            setFeed();
+            setComments();
 
+        }
+       
         cardLayout = (CardLayout) pnlCards.getLayout();
         
 
@@ -500,6 +507,10 @@ public class Principal extends javax.swing.JFrame {
         pnlSettingsLayout.setHorizontalGroup(
             pnlSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSettingsLayout.createSequentialGroup()
+                .addGap(0, 398, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(363, 363, 363))
             .addGroup(pnlSettingsLayout.createSequentialGroup()
                 .addGroup(pnlSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlSettingsLayout.createSequentialGroup()
@@ -509,17 +520,11 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(jButton1)))
                     .addGroup(pnlSettingsLayout.createSequentialGroup()
                         .addGap(359, 359, 359)
-                        .addComponent(jButton2)))
-                .addContainerGap(367, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSettingsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(pnlSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSettingsLayout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addGap(363, 363, 363))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSettingsLayout.createSequentialGroup()
-                        .addComponent(bt_edit_profile_photo)
-                        .addGap(313, 313, 313))))
+                        .addComponent(jButton2))
+                    .addGroup(pnlSettingsLayout.createSequentialGroup()
+                        .addGap(334, 334, 334)
+                        .addComponent(bt_edit_profile_photo)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlSettingsLayout.setVerticalGroup(
             pnlSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -531,9 +536,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(43, 43, 43)
                 .addComponent(jButton3)
-                .addGap(47, 47, 47)
+                .addGap(52, 52, 52)
                 .addComponent(bt_edit_profile_photo)
-                .addGap(62, 62, 62)
+                .addGap(57, 57, 57)
                 .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -747,7 +752,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_edit_profile_photoActionPerformed
 
     private void createPublicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createPublicMouseClicked
-        ///CREATE PUBLIC
+
+        PublicStore publicStore = new PublicStore();
+        publicStore.setVisible(true);
+
     }//GEN-LAST:event_createPublicMouseClicked
 
     private void nextButomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextButomMouseClicked
@@ -830,6 +838,8 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void setFeed() {
+        String desc = jSONArray.getJSONObject(PAGE).get("descricao").toString();
+        descPublic.setText(desc);
         AsyncFeedController afc = new AsyncFeedController();
         afc.setFeedItens(feed, ID_USER_FEED[PAGE], jSONArray.getJSONObject(PAGE));
     }
