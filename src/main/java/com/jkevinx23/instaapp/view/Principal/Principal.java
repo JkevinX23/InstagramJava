@@ -9,6 +9,7 @@ import com.jkevinx23.instaapp.Feed;
 import com.jkevinx23.instaapp.ProfileHead;
 import com.jkevinx23.instaapp.controller.AsyncFeedController;
 import com.jkevinx23.instaapp.controller.CommentController;
+import com.jkevinx23.instaapp.controller.LikeController;
 import com.jkevinx23.instaapp.controller.MainController;
 import com.jkevinx23.instaapp.models.User;
 import java.awt.CardLayout;
@@ -82,7 +83,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         descPublic = new javax.swing.JLabel();
         ivPublic = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        likeButtom = new javax.swing.JLabel();
         nextButom = new javax.swing.JLabel();
         backFeed = new javax.swing.JLabel();
         buttonComment = new javax.swing.JLabel();
@@ -284,10 +285,15 @@ public class Principal extends javax.swing.JFrame {
 
         ivPublic.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_picture_240px.png")); // NOI18N
 
-        jLabel17.setFont(new java.awt.Font("Lyster PERSONAL USE ONLY", 0, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(242, 170, 76));
-        jLabel17.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_heart_20px.png")); // NOI18N
-        jLabel17.setText("Like");
+        likeButtom.setFont(new java.awt.Font("Lyster PERSONAL USE ONLY", 0, 14)); // NOI18N
+        likeButtom.setForeground(new java.awt.Color(242, 170, 76));
+        likeButtom.setIcon(new javax.swing.ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_heart_20px.png")); // NOI18N
+        likeButtom.setText("Like");
+        likeButtom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                likeButtomMouseClicked(evt);
+            }
+        });
 
         nextButom.setFont(new java.awt.Font("Fira Code Medium", 1, 12)); // NOI18N
         nextButom.setForeground(new java.awt.Color(242, 170, 76));
@@ -350,7 +356,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(ivPublic)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
+                                    .addComponent(likeButtom)
                                     .addComponent(buttonComment))
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -378,7 +384,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel17)
+                            .addComponent(likeButtom)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -819,6 +825,13 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLabel7MouseClicked
 
+    private void likeButtomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_likeButtomMouseClicked
+        likeButtom.setIcon(new ImageIcon("C:\\Users\\jkevi\\OneDrive\\Documentos\\NetBeansProjects\\InstagramJava\\src\\main\\java\\com\\jkevinx23\\instaapp\\view\\Principal\\Icons\\icons8_heart_20px_1.png"));
+        LikeController lc = new LikeController();        
+        String idpublic = jSONArray.getJSONObject(PAGE).get("_id").toString();        
+        lc.Store(idpublic);
+    }//GEN-LAST:event_likeButtomMouseClicked
+
     private void setComments() {      
         String publicID = jSONArray.getJSONObject(PAGE).get("_id").toString();
         commentController.index(publicID, CommentsList);
@@ -925,7 +938,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -941,6 +953,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel likeButtom;
     private javax.swing.JLabel menuProfile;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nextButom;
