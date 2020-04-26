@@ -9,33 +9,33 @@ package com.jkevinx23.instaapp.models;
  *
  * @author jkevi
  */
-public class Flow {
-    private String user_id;
-    private String flowed_id;
+public class Follow {
+    private String iduser;
+    private String idfollowed;
     private Boolean active;
 
     public void setActive(Boolean active) {
         this.active = active;
     }
 
-    public void setFlowed_id(String flowed_id) {
-        this.flowed_id = flowed_id;
+    public void setIdfollowed(String idfollowed) {
+        this.idfollowed = idfollowed;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setIduser(String iduser) {
+        this.iduser = iduser;
     }
 
     public Boolean getActive() {
         return active;
     }
 
-    public String getFlowed_id() {
-        return flowed_id;
+    public String getIdfollowed() {
+        return idfollowed;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getIduser() {
+        return iduser;
     }
    
 }

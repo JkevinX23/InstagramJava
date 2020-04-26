@@ -24,7 +24,7 @@ public class AsyncFeedController {
         asyncGetUserID.execute();
          
         ///DISPARA UMA FUNCAO ASINCRONA QUE BUSCA A IMAGEM DA PUBLICACAO APARTIR DE SEU PATH;
-        AsyncGetPublicPhoto asyncGetPublicPhoto = new AsyncGetPublicPhoto(publicacao, feed.getImageView());
+        AsyncGetPublicPhoto asyncGetPublicPhoto = new AsyncGetPublicPhoto(publicacao, feed.getImageView(), 240);
         asyncGetPublicPhoto.execute();
         
     }

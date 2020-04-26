@@ -5,14 +5,14 @@
  */
 package com.jkevinx23.instaapp.controller;
 
+import com.jkevinx23.instaapp.auxiliar.DisposeWindow;
 import com.jkevinx23.instaapp.config.Connection;
 import com.jkevinx23.instaapp.config.Keys;
 import com.jkevinx23.instaapp.models.User;
 import com.jkevinx23.instaapp.view.Profile.Profiles;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
 import org.json.JSONArray;
 
 /**
@@ -56,20 +56,14 @@ public class ProfileController {
         System.out.println("SETANDO LISTA DE TAMANHO: " + size);
         list.setModel(listModel);
         
-        list.addMouseListener(new MouseAdapter() {
-            public void mouseCliked(MouseEvent evt) {
-                JList list = (JList) evt.getSource();
-                if (evt.getClickCount() >= 2) {
-                    // dois clicks
-                   
-                    int index = list.locationToIndex(evt.getPoint());
-                     System.out.println("USUARIO  " + users[index].getName());
-                    userprofile(index);
-                }
-            }
-
-        });
-
+       list.addListSelectionListener((ListSelectionEvent e) -> {
+           if(!e.getValueIsAdjusting()){
+               userprofile(list.getSelectedIndex());
+               DisposeWindow dw = new DisposeWindow();
+               dw.dispose(list);
+           }
+           
+       });
     }
 
     private void userprofile(int selected) {

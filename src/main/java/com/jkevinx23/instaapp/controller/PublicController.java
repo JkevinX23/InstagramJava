@@ -7,7 +7,11 @@ package com.jkevinx23.instaapp.controller;
 
 import com.jkevinx23.instaapp.config.Connection;
 import com.jkevinx23.instaapp.config.Keys;
+import com.jkevinx23.instaapp.controller.SwingWorkers.AsyncGetPublicPhoto;
+import com.jkevinx23.instaapp.models.Publication;
 import java.io.File;
+import javax.swing.JLabel;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -37,5 +41,34 @@ public class PublicController {
         json.put("description", description);
         String response = con.POST_JSON_AUTH2(route, json, token);
         System.out.println("DESCRIPTION SET: "+response);
+    }
+    
+    public Publication[] index(String iduser){
+        
+        String route = "/public/" + iduser;
+        
+        String response = con.GET_AUTH(route, token);
+        
+        JSONArray json = new JSONArray(response);
+        
+        int size = json.length();
+        
+        Publication[] ps = new Publication[size];
+        
+        for(int i=0; i<size; i++){
+            Publication p = new Publication();
+            p.setId(json.getJSONObject(i).get("_id").toString());
+            p.setPath(json.getJSONObject(i).get("path").toString());
+            p.setDescription(json.getJSONObject(i).get("descricao").toString());
+            ps[i] = p;
+        }
+        
+        return ps;
+        
+    }
+    
+    public void setPublicPhoto(JSONObject pb, JLabel label){
+        AsyncGetPublicPhoto agpp = new AsyncGetPublicPhoto(pb, label, 60);
+        agpp.execute();
     }
 }   

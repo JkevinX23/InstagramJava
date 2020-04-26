@@ -32,10 +32,12 @@ public class AsyncGetPublicPhoto extends SwingWorker<Image, Void> {
 
     JSONObject pb;
     JLabel icon;
+    int px;
 
-    public AsyncGetPublicPhoto(JSONObject pb,JLabel icon) {
+    public AsyncGetPublicPhoto(JSONObject pb,JLabel icon, int px) {
         this.pb = pb;
         this.icon = icon;
+        this.px = px;
     }
 
     @Override
@@ -68,7 +70,7 @@ public class AsyncGetPublicPhoto extends SwingWorker<Image, Void> {
       
             Image png = get();
             
-            png = ri.resize(png, 240);
+            png = ri.resize(png, px);
             
             icon.setIcon(new ImageIcon(png));
             

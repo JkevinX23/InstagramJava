@@ -5,12 +5,8 @@
  */
 package com.jkevinx23.instaapp.view.Profile;
 
+import com.jkevinx23.instaapp.auxiliar.DisposeWindow;
 import com.jkevinx23.instaapp.controller.ProfileController;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -95,6 +91,11 @@ public class IndexProfiles extends javax.swing.JFrame {
         usersList.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         usersList.setFont(new java.awt.Font("Lyster PERSONAL USE ONLY", 0, 12)); // NOI18N
         usersList.setForeground(new java.awt.Color(242, 170, 76));
+        usersList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usersListMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(usersList);
 
         searchUsername.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -163,9 +164,13 @@ public class IndexProfiles extends javax.swing.JFrame {
     }//GEN-LAST:event_searchUsername1ActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        JFrame f2 = (JFrame) SwingUtilities.getWindowAncestor(jLabel1);
-        f2.dispose();
+        DisposeWindow dw = new DisposeWindow();
+        dw.dispose(jLabel1);
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void usersListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersListMouseClicked
+    
+    }//GEN-LAST:event_usersListMouseClicked
 
     /**
      * @param args the command line arguments
